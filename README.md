@@ -1,4 +1,34 @@
-# Docker container images with ROS, Gazebo, and Xfce4 VNC Desktop 
+Docker-Blimp
+============
+
+***A docker image to simulate lighter than air vehicles (LTAVs) in ROS/Gazebo***
+
+**Author:** *Wail Gueaieb*
+
+
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+- [Docker-Blimp](#docker-blimp)
+    - [Current Image Build:](#current-image-build)
+    - [Spec](#spec)
+    - [Usage](#usage)
+    - [Connect & Control](#connect--control)
+    - [Detail Environment setting](#detail-environment-setting)
+        - [-](#-)
+        - [1.2) Using user and group id of host system](#12-using-user-and-group-id-of-host-system)
+        - [2) Override VNC and Container environment variables](#2-override-vnc-and-container-environment-variables)
+            - [2.1) Example: Override the VNC password](#21-example-override-the-vnc-password)
+            - [2.2) Example: Override the VNC resolution](#22-example-override-the-vnc-resolution)
+        - [3) Mounting local directory to conatiner](#3-mounting-local-directory-to-conatiner)
+    - [Installed Robots](#installed-robots)
+        - [Fixed Manipulators](#fixed-manipulators)
+        - [Wheeled Mobile Robots](#wheeled-mobile-robots)
+        - [Wheeled Mobile Manipulators](#wheeled-mobile-manipulators)
+        - [Aerial robots](#aerial-robots)
+    - [Contributors](#contributors)
+
+<!-- markdown-toc end -->
 
 This repository main developed from henry2423/docker-ros-vnc: [https://github.com/henry2423/docker-ros-vnc](https://github.com/henry2423/docker-ros-vnc). Most of the documentation for that repository is valid for this one, except:
   * Only ROS Melodic is supported here (ROS Kinetic and Lunar are not).
