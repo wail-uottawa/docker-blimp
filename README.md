@@ -1,9 +1,6 @@
-[//]: # Docker-Blimp
-[//]: # ============
-
 ***A docker image to simulate lighter than air vehicles (LTAVs) in ROS/Gazebo***
 
-**Author:** *Wail Gueaieb*
+**Maintainer:** *Wail Gueaieb*
 
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
@@ -21,9 +18,9 @@
         - [Using root (user id `0`)](#using-root-user-id-0)
         - [Using user and group id of host system](#using-user-and-group-id-of-host-system)
         - [Override VNC and container environment variables](#override-vnc-and-container-environment-variables)
-            - [Example: Override the VNC password](#example-override-the-vnc-password)
-            - [Example: Override the VNC resolution](#example-override-the-vnc-resolution)
-        - [Mounting local directory to conatiner](#mounting-local-directory-to-conatiner)
+            - [Example: Overriding the VNC password](#example-overriding-the-vnc-password)
+            - [Example: Overriding the VNC resolution](#example-overriding-the-vnc-resolution)
+        - [Mounting local directory to container](#mounting-local-directory-to-container)
 
 <!-- markdown-toc end -->
 
