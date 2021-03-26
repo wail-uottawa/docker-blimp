@@ -21,6 +21,8 @@
             - [Example: Overriding the VNC password](#example-overriding-the-vnc-password)
             - [Example: Overriding the VNC resolution](#example-overriding-the-vnc-resolution)
         - [Mounting local directory to container](#mounting-local-directory-to-container)
+- [ROS Catkin Workspace](#ros-catkin-workspace)
+- [Installation of Airship Simulation Repository](#installation-of-airship-simulation-repository)
 
 <!-- markdown-toc end -->
 
@@ -132,3 +134,50 @@ Docker enables the mapping between directories on the host system and the contai
         --volume /home/ros/Desktop:/home/ros/Desktop:rw \
         realjsk/blimp:20210323
 
+# ROS Catkin Workspace 
+The container comes with a catkin workspace already set up. By default, the path for the catkin workspace is  
+`/home/ros/catkin_ws`
+
+Some ROS packages are installed in the catkin workspace, including the [airship simulation](https://github.com/robot-perception-group/airship_simulation) repository, as shall be described later.
+
+In order for users to write their own ROS packages without running the risk of interfering with the pre-installed packages in this catkin workspace, it is recommended to include all user packages in a mapped directory inside the `src` directory of the catkin workspace. For example, the user may want to dedicate a folder on the host machine for his own ROS packages. Let's say that the path to this folder is `/home/john/work_dir`, then it can be mapped to a folder inside the container's catkin workspace by adding the following part to the command with which the container is run:
+
+> `--volume /home/john/work_dir:/home/ros/catkin_ws/src/work_dir:rw`
+
+Be aware that you may have to specify the path to the host folder differently in case the host operating system is Windows.
+
+# Installation of Airship Simulation Repository
+If the docker image was pulled from the Docker Hub, as explained in [Pulling the Image from Docker Hub](#pulling-the-image-from-docker-hub) Section, then the [airship simulation](https://github.com/robot-perception-group/airship_simulation) repository comes pre-installed and configured. 
+
+In case the image was built locally, as described in the [Building the Image Locally](#building-the-image-locally) Section, then the [airship simulation](https://github.com/robot-perception-group/airship_simulation) repository comes only partially installed. To complete the installation, Step 5 ("To build the LibrePilot Submodule, go into the LibrePilot subfolder") of the "Installation Instructions - Ubuntu 18.04 with ROS Melodic and Gazebo 9" [Section](https://github.com/robot-perception-group/airship_simulation#installation-instructions---ubuntu-1804-with-ros-melodic-and-gazebo-9) needs to be applied manually from within the container. To do so, tt is recommended to follow the steps below, which represent a slightly modified version of the original procedure descriped on the [airship simulation](https://github.com/robot-perception-group/airship_simulation) Github page. 
+
+1. cd to the catkin workspace
+> `cd ~/catkin_ws`
+2. cd to the LibrePilot directory
+> `cd src/airship_simulation/LibrePilot`
+3. Install qt sdk for building the GCS
+> `make qt_sdk_install`
+4. Install arm sdk for building the flightcontroller firmware
+> `make arm_sdk_install`
+5. Install uncrustify
+> `make uncrustify_install`
+6. Install build dependencies
+> `sudo apt update`  
+> `sudo apt install -y libopenscenegraph-3.4-dev`  
+> `sudo apt install -y libusb-dev libsdl-dev libudev-dev libosgearth-dev ros-melodic-mav-comm`
+7. Build gcs
+> `make -j 10 gcs`  
+If this fails, check the error messages for possible additional dependencies.
+8. Build SITL flightcontroller executable
+> `make -j 10 fw_simposix`
+9. Build HITL flightcontroller firmware
+> `make -j 10 fw_revolution`
+
+The last step will most likely fail (see the [airship simulation](https://github.com/robot-perception-group/airship_simulation) Github page for details). However, it is only useful for the hardware flightcontroller. If you are only interested in ROS/Gazebo simulations, it is not required. Note that the hardware flightcontroller is not built in the Docker Hub image either. 
+
+After that, follow the instructions in the "Basic Usage" [Section](https://github.com/robot-perception-group/airship_simulation#basic-usage) to set the required configuration of the GCS. Note that this step is not necessary if you are using the Docker Hub image as it is already done for you.
+
+To make these changes permanent in your locally built image, run the following command at a host shell (not within the container):
+> `docker commit [RUNNING_CONTAINER_ID] [NEW_IMAGE_NAME]`
+
+where `[RUNNING_CONTAINER_ID]` is the ID of the running container (which you can get by running `docker container ls`) and `[NEW_IMAGE_NAME]` is the name you want to give to the new image which reflects the current state of your container. You can learn more on this command on its designated [docker reference page](https://docs.docker.com/engine/reference/commandline/commit/).
