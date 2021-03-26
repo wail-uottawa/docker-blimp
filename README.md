@@ -2,7 +2,7 @@
 
 **Maintainer:** *Wail Gueaieb*
 
-[![Github All Releases](https://img.shields.io/github/downloads/wail-uottawa/Docker-Blimp/total.svg)]()
+![GitHub all releases](https://img.shields.io/github/downloads/wail-uottawa/Docker-Blimp/total)
 ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/wail-uottawa/Docker-Blimp/master)
 [![GitHub license](https://img.shields.io/github/license/wail-uottawa/Docker-Blimp)](https://github.com/wail-uottawa/Docker-Blimp/blob/master/LICENSE)
 
