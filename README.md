@@ -23,6 +23,8 @@
         - [Mounting local directory to container](#mounting-local-directory-to-container)
 - [ROS Catkin Workspace](#ros-catkin-workspace)
 - [Installation of Airship Simulation Repository](#installation-of-airship-simulation-repository)
+- [Acknowledgment](#acknowledgment)
+- [Disclaimer](#disclaimer)
 
 <!-- markdown-toc end -->
 
@@ -181,3 +183,12 @@ To make these changes permanent in your locally built image, run the following c
 > `docker commit [RUNNING_CONTAINER_ID] [NEW_IMAGE_NAME]`
 
 where `[RUNNING_CONTAINER_ID]` is the ID of the running container (which you can get by running `docker container ls`) and `[NEW_IMAGE_NAME]` is the name you want to give to the new image which reflects the current state of your container. You can learn more on this command on its designated [docker reference page](https://docs.docker.com/engine/reference/commandline/commit/).
+
+# Acknowledgment
+Credit goes primarily to the maintainers of the following projects:
+
+* [henry2423/docker-ros-vnc](https://github.com/henry2423/docker-ros-vnc)
+* [airship simulation](https://github.com/robot-perception-group/airship_simulation)
+
+# Disclaimer
+The main purpose of this repository and docker image is to facilitate researchers efforts in conducting realistic simulations of LTAVs. However, they come with no warranty. 
